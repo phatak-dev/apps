@@ -202,6 +202,33 @@ body {
     flex: 1;
     padding: 40px;
     overflow-y: auto;
+    position: relative;
+}
+
+.content-header-bar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: white;
+    padding: 20px 0;
+    margin: -40px -40px 20px -40px;
+    padding-left: 40px;
+    padding-right: 40px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    border-bottom: 3px solid #e67e22;
+}
+
+.content-site-title {
+    font-size: 28px;
+    color: #2c3e50;
+    margin: 0;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    display: inline-block;
+}
+
+.content-site-title:hover {
+    color: #e67e22;
 }
 
 .content-card {
@@ -418,8 +445,18 @@ body {
 
     .content-section {
         padding: 15px;
-        padding-top: 70px;
+        padding-top: 15px;
         width: 100%;
+    }
+
+    .content-header-bar {
+        margin: -15px -15px 15px -15px;
+        padding: 15px 15px 15px 60px;
+        top: 0;
+    }
+
+    .content-site-title {
+        font-size: 20px;
     }
 
     .welcome-screen {

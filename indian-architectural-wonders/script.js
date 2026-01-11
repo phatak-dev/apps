@@ -617,5 +617,29 @@ document.addEventListener('DOMContentLoaded', () => {
             closeMenu();
         }
     });
+
+    // Content header home link functionality
+    document.getElementById('content-home-link').addEventListener('click', () => {
+        // Hide all content cards
+        document.querySelectorAll('.content-card').forEach(card => {
+            card.classList.remove('active');
+        });
+
+        // Show welcome screen
+        document.getElementById('welcome').classList.add('active');
+
+        // Remove active state from all timeline items
+        document.querySelectorAll('.timeline-item').forEach(item => {
+            item.classList.remove('active');
+        });
+
+        // Scroll to top
+        document.querySelector('.content-section').scrollTop = 0;
+
+        // Close menu if on mobile
+        if (window.innerWidth <= 768) {
+            closeMenu();
+        }
+    });
 });
 
