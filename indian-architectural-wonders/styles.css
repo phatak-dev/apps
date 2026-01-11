@@ -416,6 +416,10 @@ body {
     /* Show hamburger menu on mobile */
     .menu-toggle {
         display: flex;
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        z-index: 1001;
     }
 
     /* Show overlay when active */
