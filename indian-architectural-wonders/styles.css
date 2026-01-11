@@ -1,0 +1,397 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    min-height: 100vh;
+}
+
+.container {
+    display: flex;
+    max-width: 1400px;
+    margin: 0 auto;
+    min-height: 100vh;
+}
+
+.timeline-section {
+    width: 350px;
+    background: #2c3e50;
+    color: white;
+    padding: 30px 20px;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+}
+
+.timeline-header {
+    text-align: center;
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #e67e22;
+}
+
+.timeline-header h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #e67e22;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.timeline-header h1:hover {
+    color: #f39c12;
+}
+
+.timeline-header p {
+    font-size: 14px;
+    color: #bdc3c7;
+    margin-bottom: 5px;
+}
+
+.timeline-handle {
+    font-size: 13px;
+    color: #e67e22;
+    font-weight: 500;
+}
+
+.timeline-handle a {
+    color: #e67e22;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.timeline-handle a:hover {
+    color: #f39c12;
+    text-decoration: underline;
+}
+
+.timeline {
+    position: relative;
+    padding-left: 30px;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: #e67e22;
+}
+
+.timeline-item {
+    margin-bottom: 30px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    position: relative;
+}
+
+.timeline-item:hover {
+    transform: translateX(5px);
+}
+
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -36px;
+    top: 5px;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: #e67e22;
+    border: 3px solid #2c3e50;
+    transition: all 0.3s ease;
+}
+
+.timeline-item:hover::before {
+    background: #f39c12;
+    transform: scale(1.3);
+}
+
+.timeline-item.active::before {
+    background: #f39c12;
+    transform: scale(1.5);
+    box-shadow: 0 0 10px rgba(243, 156, 18, 0.8);
+}
+
+.timeline-item.active {
+    transform: translateX(5px);
+}
+
+.timeline-century {
+    font-size: 12px;
+    color: #e67e22;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.timeline-name {
+    font-size: 16px;
+    color: white;
+    font-weight: 500;
+}
+
+.content-section {
+    flex: 1;
+    padding: 40px;
+    overflow-y: auto;
+}
+
+.content-card {
+    background: white;
+    border-radius: 15px;
+    padding: 40px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    display: none;
+}
+
+.content-card.active {
+    display: block;
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.content-header {
+    margin-bottom: 30px;
+}
+
+.content-century {
+    font-size: 14px;
+    color: #e67e22;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.content-title {
+    font-size: 36px;
+    color: #2c3e50;
+    margin-bottom: 15px;
+}
+
+.content-location {
+    font-size: 16px;
+    color: #7f8c8d;
+    margin-bottom: 10px;
+}
+
+.content-visited {
+    font-size: 15px;
+    color: #e67e22;
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+
+.content-images {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 25px;
+    margin-bottom: 40px;
+}
+
+.content-image {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.content-image:hover {
+    transform: scale(1.02);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.4);
+}
+
+.content-description {
+    line-height: 1.6;
+    color: #34495e;
+    font-size: 17px;
+    margin-bottom: 20px;
+}
+
+.wikipedia-link {
+    display: inline-block;
+    padding: 12px 24px;
+    background: #e67e22;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: background 0.3s ease;
+    margin-top: 10px;
+}
+
+.wikipedia-link:hover {
+    background: #d35400;
+}
+
+.welcome-screen {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    text-align: center;
+    color: #7f8c8d;
+}
+
+.welcome-screen h2 {
+    font-size: 42px;
+    color: #2c3e50;
+    margin-bottom: 20px;
+}
+
+.welcome-screen p {
+    font-size: 18px;
+    max-width: 900px;
+    margin-bottom: 30px;
+}
+
+.welcome-content {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.map-container {
+    padding: 20px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.map-container h3,
+.welcome-gallery-section h3 {
+    color: #2c3e50;
+    font-size: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.india-map {
+    width: 100%;
+    height: 700px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.welcome-gallery-section {
+    padding: 20px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+}
+
+.welcome-gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.welcome-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.welcome-image:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+}
+
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .timeline-section {
+        width: 100%;
+        height: auto;
+        position: relative;
+    }
+
+    .content-section {
+        padding: 15px;
+    }
+
+    .welcome-screen {
+        padding: 10px;
+    }
+
+    .welcome-screen h2 {
+        font-size: 32px;
+    }
+
+    .welcome-screen p {
+        font-size: 16px;
+    }
+
+    .content-title {
+        font-size: 28px;
+    }
+
+    .welcome-content {
+        gap: 20px;
+    }
+
+    .map-container {
+        max-width: 100%;
+        padding: 5px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .map-container h3 {
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
+
+    .india-map {
+        height: 400px;
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .welcome-gallery-section {
+        padding: 10px;
+    }
+
+    .welcome-gallery-section h3 {
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
+
+    .welcome-gallery {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    .welcome-image {
+        height: 180px;
+    }
+}
+
