@@ -206,6 +206,9 @@ body {
 }
 
 .content-header-bar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
     background: white;
     padding: 20px 0;
     margin: -40px -40px 20px -40px;
@@ -453,6 +456,7 @@ body {
     .content-header-bar {
         margin: -15px -15px 15px -15px;
         padding: 15px 15px 15px 75px;
+        top: 0;
     }
 
     .content-site-title {
