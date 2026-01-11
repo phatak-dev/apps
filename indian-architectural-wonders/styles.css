@@ -475,6 +475,20 @@ body {
         font-size: 28px;
     }
 
+    .content-card {
+        padding: 20px;
+    }
+
+    .content-images {
+        grid-template-columns: 1fr;
+        gap: 15px;
+        margin-bottom: 25px;
+    }
+
+    .content-image {
+        height: 300px;
+    }
+
     .welcome-content {
         gap: 20px;
     }
