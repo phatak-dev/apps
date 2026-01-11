@@ -406,7 +406,18 @@ function generateTimeline() {
     });
 }
 
-function showContent(id) {
+// Helper function to create URL-friendly slug from monument name
+function createSlug(name) {
+    return name
+        .toLowerCase()
+        .replace(/\(.*?\)/g, '') // Remove content in parentheses
+        .trim()
+        .replace(/[^a-z0-9\s-]/g, '') // Remove special characters
+        .replace(/\s+/g, '-') // Replace spaces with hyphens
+        .replace(/-+/g, '-'); // Replace multiple hyphens with single hyphen
+}
+
+function showContent(id, addToHistory = true) {
     // Hide welcome screen
     document.getElementById('welcome').classList.remove('active');
 
@@ -432,6 +443,46 @@ function showContent(id) {
 
     // Scroll to top of content section
     document.querySelector('.content-section').scrollTop = 0;
+
+    // Add to browser history
+    if (addToHistory) {
+        const monument = architectureData.find(item => item.id === id);
+        if (monument) {
+            const slug = createSlug(monument.name);
+            const title = `${monument.name} - Indian Architectural Wonders`;
+            history.pushState({ monumentId: id }, title, `#${slug}`);
+        }
+    }
+}
+
+function showWelcome(addToHistory = true) {
+    // Show welcome screen
+    document.getElementById('welcome').classList.add('active');
+
+    // Hide all content cards
+    document.querySelectorAll('.content-card').forEach(card => {
+        if (card.id !== 'welcome') {
+            card.classList.remove('active');
+        }
+    });
+
+    // Remove active state from all timeline items
+    document.querySelectorAll('.timeline-item').forEach(item => {
+        item.classList.remove('active');
+    });
+
+    // Remove active state from all map pins
+    document.querySelectorAll('.map-pin').forEach(pin => {
+        pin.classList.remove('active');
+    });
+
+    // Scroll to top of content section
+    document.querySelector('.content-section').scrollTop = 0;
+
+    // Add to browser history
+    if (addToHistory) {
+        history.pushState({ monumentId: null }, 'Indian Architectural Wonders', '#');
+    }
 }
 
 // Initialize on page load
@@ -440,28 +491,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Add click handler for home link
     document.getElementById('home-link').addEventListener('click', () => {
-        // Show welcome screen
-        document.getElementById('welcome').classList.add('active');
-
-        // Hide all content cards
-        document.querySelectorAll('.content-card').forEach(card => {
-            if (card.id !== 'welcome') {
-                card.classList.remove('active');
-            }
-        });
-
-        // Remove active state from all timeline items
-        document.querySelectorAll('.timeline-item').forEach(item => {
-            item.classList.remove('active');
-        });
-
-        // Remove active state from all map pins
-        document.querySelectorAll('.map-pin').forEach(pin => {
-            pin.classList.remove('active');
-        });
-
-        // Scroll to top of content section
-        document.querySelector('.content-section').scrollTop = 0;
+        showWelcome();
     });
 
     // GPS Coordinates for each monument
@@ -620,26 +650,41 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Content header home link functionality
     document.getElementById('content-home-link').addEventListener('click', () => {
-        // Hide all content cards
-        document.querySelectorAll('.content-card').forEach(card => {
-            card.classList.remove('active');
-        });
-
-        // Show welcome screen
-        document.getElementById('welcome').classList.add('active');
-
-        // Remove active state from all timeline items
-        document.querySelectorAll('.timeline-item').forEach(item => {
-            item.classList.remove('active');
-        });
-
-        // Scroll to top
-        document.querySelector('.content-section').scrollTop = 0;
+        showWelcome();
 
         // Close menu if on mobile
         if (window.innerWidth <= 768) {
             closeMenu();
         }
     });
+
+    // Handle browser back/forward buttons
+    window.addEventListener('popstate', (event) => {
+        if (event.state && event.state.monumentId) {
+            // Show the monument content without adding to history
+            showContent(event.state.monumentId, false);
+        } else {
+            // Show welcome screen without adding to history
+            showWelcome(false);
+        }
+    });
+
+    // Initialize page based on URL hash
+    const initializeFromURL = () => {
+        const hash = window.location.hash.substring(1); // Remove the # character
+        if (hash && hash !== '') {
+            // Find monument by matching the slug
+            const monument = architectureData.find(item => createSlug(item.name) === hash);
+            if (monument) {
+                // Show content without adding to history (since we're already at this URL)
+                showContent(monument.id, false);
+                return;
+            }
+        }
+        // Set initial state for welcome page if no valid hash or hash not found
+        history.replaceState({ monumentId: null }, 'Indian Architectural Wonders', '#');
+    };
+
+    initializeFromURL();
 });
 
