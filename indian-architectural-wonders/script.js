@@ -570,5 +570,52 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('resize', () => {
         map.invalidateSize();
     });
+
+    // Mobile menu functionality
+    const menuToggle = document.getElementById('menu-toggle');
+    const menuOverlay = document.getElementById('menu-overlay');
+    const timelineSection = document.getElementById('timeline-section');
+
+    function openMenu() {
+        menuToggle.classList.add('active');
+        menuOverlay.classList.add('active');
+        timelineSection.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeMenu() {
+        menuToggle.classList.remove('active');
+        menuOverlay.classList.remove('active');
+        timelineSection.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    // Toggle menu when clicking hamburger button
+    menuToggle.addEventListener('click', () => {
+        if (timelineSection.classList.contains('active')) {
+            closeMenu();
+        } else {
+            openMenu();
+        }
+    });
+
+    // Close menu when clicking overlay
+    menuOverlay.addEventListener('click', closeMenu);
+
+    // Close menu when clicking a timeline item (on mobile)
+    document.querySelectorAll('.timeline-item').forEach(item => {
+        item.addEventListener('click', () => {
+            if (window.innerWidth <= 768) {
+                closeMenu();
+            }
+        });
+    });
+
+    // Close menu when clicking home link (on mobile)
+    document.getElementById('home-link').addEventListener('click', () => {
+        if (window.innerWidth <= 768) {
+            closeMenu();
+        }
+    });
 });
 
